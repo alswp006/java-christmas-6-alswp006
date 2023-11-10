@@ -1,9 +1,5 @@
 package christmas.View;
 
-import christmas.domain.Discount;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class OutputView {
