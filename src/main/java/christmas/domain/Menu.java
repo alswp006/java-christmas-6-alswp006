@@ -2,6 +2,7 @@ package christmas.domain;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public enum Menu {
@@ -20,12 +21,12 @@ public enum Menu {
 
     private final String menuName;
     private final int price;
-    private final String moveType;
+    private final String menuType;
 
-    Menu(String menuName, int price, String moveType) {
+    Menu(String menuName, int price, String menuType) {
         this.menuName = menuName;
         this.price = price;
-        this.moveType = moveType;
+        this.menuType = menuType;
     }
 
     public String getMenuName() {
@@ -37,6 +38,5 @@ public enum Menu {
                 .map(Menu::getMenuName)
                 .collect(Collectors.toList());
     }
-
 
 }

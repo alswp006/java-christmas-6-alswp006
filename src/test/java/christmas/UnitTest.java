@@ -4,11 +4,8 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class UnitTest extends NsTest {
     @DisplayName("날짜 입력에 대한 출력 확인")
@@ -32,6 +29,24 @@ public class UnitTest extends NsTest {
                     "1",
                     "해산물파스타-1");
             assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        });
+    }
+
+    @DisplayName("이벤트 메시지 출력 확인")
+    @Test
+    void outputEventMessageTest() {
+        assertSimpleTest(() -> {
+            run("10", "해산물파스타-1,레드와인-2");
+            assertThat(output()).contains("12월 10일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        });
+    }
+
+    @DisplayName("메뉴 출력 확인")
+    @Test
+    void outputMenuTest() {
+        assertSimpleTest(() -> {
+            run("10", "해산물파스타-1,레드와인-2");
+            assertThat(output()).contains("해산물파스타 1개", "레드와인 2개");
         });
     }
 
