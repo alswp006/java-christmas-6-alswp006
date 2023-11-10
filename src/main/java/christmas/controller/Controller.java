@@ -23,5 +23,6 @@ public class Controller {
         int totalDiscount = discount.applyDiscounts(orderMenu, date);
         String discountDetails = discount.getDiscountDetails();
         outputView.printDiscountDetails(discountDetails);
+        outputView.printApplyDiscountPrice(totalPrice - totalDiscount);
     }
 }

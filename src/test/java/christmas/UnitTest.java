@@ -60,7 +60,8 @@ public class UnitTest extends NsTest {
             assertThat(output()).contains("없음");
         });
     }
-    @DisplayName("할인 적용 확인")
+
+    @DisplayName("할인 적용 및 할인 후 예상 결제 금액 확인")
     @Test
     void discountTest2() {
         assertSimpleTest(() -> {
@@ -68,7 +69,8 @@ public class UnitTest extends NsTest {
             assertThat(output()).contains(
                     "크리스마스 디데이 할인: -1,200원",
                     "평일 할인: -4,046원",
-                    "특별 할인: -1,000원");
+                    "특별 할인: -1,000원",
+                    "135,754원");
         });
     }
 

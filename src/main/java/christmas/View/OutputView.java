@@ -13,9 +13,9 @@ public class OutputView {
 
     public void eventMessage(int date){
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", date);
+        System.out.println();
     }
     public void printMenu(Map<String, Integer> orderMenus) {
-        System.out.println();
         System.out.println(ORDERMENU);
         orderMenus.
                 forEach((key, value) -> System.out.println(key + " " + value + "개"));
@@ -23,14 +23,18 @@ public class OutputView {
     }
 
     public void printTotalPrice(int totalPrice) {
-        System.out.println();
         System.out.println(TOTALPRICE);
         System.out.printf("%,d원\n", totalPrice);
+        System.out.println();
     }
 
     public void printDiscountDetails(String discountDetails){
-        System.out.println();
         System.out.println(DISCOUNTDETAILS);
         System.out.println(discountDetails);
+    }
+
+    public void printApplyDiscountPrice(int price){
+        System.out.println(applyDiscountPrice);
+        System.out.printf("%,d원\n",price);
     }
 }
