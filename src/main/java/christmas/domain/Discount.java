@@ -17,19 +17,20 @@ public class Discount {
         this.discounts = new ArrayList<>();
     }
 
-    private int getWeekValue(int date){
+    private int getWeekValue(int date) {
         LocalDate localDate = LocalDate.of(2023, 12, date);
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
 
         return dayOfWeek.getValue();
     }
+
     public int applyDiscounts(Map<String, Integer> menus, int date) {
         int weekValue = getWeekValue(date);
         String discountMenuType = getMenuType(weekValue);
 
         int totalDiscount = menus.entrySet().stream()
                 .filter(menu -> discountMenuType.equals(Menu.getMenuType(menu.getKey())))
-                .mapToInt(menu -> weekDiscount(Menu.getMenuType(menu.getKey())))
+                .mapToInt(menu -> weekDiscount(Menu.getMenuType(menu.getKey()), menu.getValue()))
                 .sum();
 
         totalDiscount += specialDiscount(date, weekValue) + chrismasDiscount(date);
@@ -37,15 +38,16 @@ public class Discount {
         return totalDiscount;
     }
 
-    private int weekDiscount(String menuType) {
-        int discount = 0;
+    private int weekDiscount(String menuType, int quantity) {
+        int discount = 2023 * quantity;
+
         if (menuType.equals("dessert")) {
-            discounts.add(String.format("평일 할인: -%,d원", 2023));
-            discount = 2023;
-        } else if (menuType.equals("main")) {
-            discounts.add(String.format("주말 할인: -%,d원", 2023));
-            discount = 2023;
+            discounts.add(String.format("평일 할인: -%,d원", discount));
         }
+        if (menuType.equals("main")) {
+            discounts.add(String.format("주말 할인: -%,d원", discount));
+        }
+
         return discount;
     }
 
@@ -83,7 +85,7 @@ public class Discount {
 
 
     public String getDiscountDetails() {
-        if (discounts.isEmpty()){
+        if (discounts.isEmpty()) {
             return "없음";
         }
         return String.join("\n", discounts);
