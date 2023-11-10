@@ -1,14 +1,16 @@
 package christmas.View;
 
+import christmas.domain.Discount;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class OutputView {
-    private final String orderMenu = "<주문 메뉴>";
-    private final String noDiscountPrice = "<할인 전 총주문 금액>";
+    private final String ORDERMENU = "<주문 메뉴>";
+    private final String TOTALPRICE = "<할인 전 총주문 금액>";
     private final String freeGift = "<증정 메뉴>";
-    private final String discountDetails = "<혜택 내역>";
+    private final String DISCOUNTDETAILS = "<혜택 내역>";
     private final String discountPrice = "<총 혜택 금액>";
     private final String applyDiscountPrice = "<할인 후 예상 결제 금액>";
     private final String eventBadge = "<12월 이벤트 배지>";
@@ -18,15 +20,21 @@ public class OutputView {
     }
     public void printMenu(Map<String, Integer> orderMenus) {
         System.out.println();
-        System.out.println(orderMenu);
+        System.out.println(ORDERMENU);
         orderMenus.
                 forEach((key, value) -> System.out.println(key + " " + value + "개"));
 
     }
 
-    public void printTotalPrice(int totalPrice){
+    public void printTotalPrice(int totalPrice) {
         System.out.println();
-        System.out.println(noDiscountPrice);
-        System.out.printf("%,d\n",totalPrice);
+        System.out.println(TOTALPRICE);
+        System.out.printf("%,d원\n", totalPrice);
+    }
+
+    public void printDiscountDetails(String discountDetails){
+        System.out.println();
+        System.out.println(DISCOUNTDETAILS);
+        System.out.println(discountDetails);
     }
 }

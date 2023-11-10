@@ -37,7 +37,7 @@ public enum Menu {
         return this.price;
     }
 
-    public String getMenuType() {
+    public String getType() {
         return this.menuType;
     }
 
@@ -49,7 +49,7 @@ public enum Menu {
 
     public static int totalPrice(Map<String, Integer> order) {
         return order.entrySet().stream()
-                .mapToInt(menu -> calculateMenuTotalPrice(menu.getKey(), menu.getValue()))
+                .mapToInt(menu -> getMenuPrice(menu.getKey(), menu.getValue()))
                 .sum();
     }
 
@@ -59,8 +59,15 @@ public enum Menu {
                 .findFirst()
                 .orElse(null);
     }
+    public static String getMenuType(String menuName) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getMenuName().equals(menuName))
+                .findFirst()
+                .map(Menu::getType)
+                .orElse(null);
+    }
 
-    private static int calculateMenuTotalPrice(String menuName, int quantity) {
+    private static int getMenuPrice(String menuName, int quantity) {
         Menu menu = findMenuByName(menuName);
 
         return menu.getPrice() * quantity;

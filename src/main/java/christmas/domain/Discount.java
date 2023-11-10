@@ -1,0 +1,91 @@
+package christmas.domain;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
+
+public class Discount {
+    List<String> discounts;
+    final int[] weekEnd = {5, 6};
+    private final int DISCOUNT = 1000;
+    private final int DAILY_INCREASE = 100;
+
+    public Discount() {
+        this.discounts = new ArrayList<>();
+    }
+
+    private int getWeekValue(int date){
+        LocalDate localDate = LocalDate.of(2023, 12, date);
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+
+        return dayOfWeek.getValue();
+    }
+    public int applyDiscounts(Map<String, Integer> menus, int date) {
+        int weekValue = getWeekValue(date);
+        String discountMenuType = getMenuType(weekValue);
+
+        int totalDiscount = menus.entrySet().stream()
+                .filter(menu -> discountMenuType.equals(Menu.getMenuType(menu.getKey())))
+                .mapToInt(menu -> weekDiscount(Menu.getMenuType(menu.getKey())))
+                .sum();
+
+        totalDiscount += specialDiscount(date, weekValue) + chrismasDiscount(date);
+
+        return totalDiscount;
+    }
+
+    private int weekDiscount(String menuType) {
+        int discount = 0;
+        if (menuType.equals("dessert")) {
+            discounts.add(String.format("평일 할인: -%,d원", 2023));
+            discount = 2023;
+        } else if (menuType.equals("main")) {
+            discounts.add(String.format("주말 할인: -%,d원", 2023));
+            discount = 2023;
+        }
+        return discount;
+    }
+
+    private int specialDiscount(int date, int dayOfWeekValue) {
+        if (date == 25 || dayOfWeekValue == 7) {
+            discounts.add(String.format("특별 할인: -%,d원", DISCOUNT));
+            return DISCOUNT;
+        }
+        return 0;
+    }
+
+    private int chrismasDiscount(int date) {
+        int discountPrice = 0;
+
+        if (date <= 25) {
+            discountPrice = DISCOUNT + (date - 1) * DAILY_INCREASE;
+        }
+        if (discountPrice != 0) {
+            discounts.add(String.format("크리스마스 디데이 할인: -%,d원", discountPrice));
+            return discountPrice;
+        }
+
+        return 0;
+    }
+
+    private String getMenuType(int weekValue) {
+        String discountMenuType = "dessert";
+
+        if (IntStream.of(weekEnd).anyMatch(day -> day == weekValue)) {
+            discountMenuType = "main";
+        }
+
+        return discountMenuType;
+    }
+
+
+    public String getDiscountDetails() {
+        if (discounts.isEmpty()){
+            return "없음";
+        }
+        return String.join("\n", discounts);
+    }
+}
