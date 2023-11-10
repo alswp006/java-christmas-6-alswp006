@@ -2,6 +2,7 @@ package christmas.controller;
 
 import christmas.View.InputView;
 import christmas.View.OutputView;
+import christmas.domain.Discount;
 import christmas.domain.Menu;
 
 import java.util.Map;
@@ -15,5 +16,8 @@ public class Controller {
 
         outputView.eventMessage(date);
         outputView.printMenu(orderMenu);
+        int totalPrice = Menu.totalPrice(orderMenu);
+        outputView.printTotalPrice(totalPrice);
+
     }
 }

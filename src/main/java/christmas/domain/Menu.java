@@ -33,10 +33,37 @@ public enum Menu {
         return this.menuName;
     }
 
-    public static List<String> getMenuNames(){
+    public int getPrice() {
+        return this.price;
+    }
+
+    public String getMenuType() {
+        return this.menuType;
+    }
+
+    public static List<String> getMenuNames() {
         return Arrays.stream(Menu.values())
                 .map(Menu::getMenuName)
                 .collect(Collectors.toList());
+    }
+
+    public static int totalPrice(Map<String, Integer> order) {
+        return order.entrySet().stream()
+                .mapToInt(menu -> calculateMenuTotalPrice(menu.getKey(), menu.getValue()))
+                .sum();
+    }
+
+    static Menu findMenuByName(String menuName) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getMenuName().equals(menuName))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private static int calculateMenuTotalPrice(String menuName, int quantity) {
+        Menu menu = findMenuByName(menuName);
+
+        return menu.getPrice() * quantity;
     }
 
 }

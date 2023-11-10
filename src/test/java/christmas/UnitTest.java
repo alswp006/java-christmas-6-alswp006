@@ -50,6 +50,16 @@ public class UnitTest extends NsTest {
         });
     }
 
+    @DisplayName("할인 적용 확인")
+    @Test
+    void discountTest() {
+        assertSimpleTest(() -> {
+            run("10", "초코케이크-2");
+            assertThat(output()).contains("없음");
+        });
+    }
+
+
     @Override
     public void runMain() {
         Application.main(new String[]{});

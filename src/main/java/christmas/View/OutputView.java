@@ -1,5 +1,7 @@
 package christmas.View;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class OutputView {
@@ -20,5 +22,11 @@ public class OutputView {
         orderMenus.
                 forEach((key, value) -> System.out.println(key + " " + value + "개"));
 
+    }
+
+    public void printTotalPrice(int totalPrice){
+        System.out.println();
+        System.out.println(noDiscountPrice);
+        System.out.printf("%,d\n",totalPrice);
     }
 }
