@@ -94,6 +94,14 @@ public class UnitTest extends NsTest {
         });
     }
 
+    @DisplayName("이벤트 배지 확인")
+    @Test
+    void eventBadgeTest() {
+        assertSimpleTest(() -> {
+            run("3", "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
+            assertThat(output()).contains("산타");
+        });
+    }
 
     @Override
     public void runMain() {

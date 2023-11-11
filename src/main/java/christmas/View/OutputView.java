@@ -54,11 +54,15 @@ public class OutputView {
     }
 
     public void printTotalBenefitPrice(int price){
-        String totalBenefitPrice = "<총 혜택 금액>";
+        String totalBenefitPrice = "<총혜택 금액>";
 
         System.out.println(totalBenefitPrice);
         System.out.printf("-%,d원\n", price);
         System.out.println();
     }
 
+    public void printEventBadge(String badge){
+        System.out.println(eventBadge);
+        System.out.println(badge);
+    }
 }

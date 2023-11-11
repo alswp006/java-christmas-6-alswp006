@@ -31,10 +31,10 @@ public class Controller {
         String discountDetails = discount.getDiscountDetails();
 
 
-        int befitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
+        int benefitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
         outputView.printDiscountDetails(discountDetails);
-        outputView.printTotalBenefitPrice(befitTotalPrice);
+        outputView.printTotalBenefitPrice(benefitTotalPrice);
         outputView.printApplyDiscountPrice(totalPrice - totalDiscount);
-
+        outputView.printEventBadge(benefit.eventbadge(benefitTotalPrice));
     }
 }
