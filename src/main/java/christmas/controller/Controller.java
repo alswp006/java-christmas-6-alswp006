@@ -24,6 +24,7 @@ public class Controller {
         outputView.printTotalPrice(totalPrice);
         String champagne = benefit.champagneFree(totalPrice);
         outputView.printBenefit(champagne);
+        discount.champagneFree(champagne);
         int totalDiscount = discount.applyDiscounts(orderMenu, date);
         String discountDetails = discount.getDiscountDetails();
         outputView.printDiscountDetails(discountDetails);

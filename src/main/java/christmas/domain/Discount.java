@@ -50,6 +50,11 @@ public class Discount {
 
         return discount;
     }
+    public void champagneFree(String champagne){
+        if (!champagne.equals("없음")){
+            discounts.add("증정 이벤트: -25,000원");
+        }
+    }
 
     private int specialDiscount(int date, int dayOfWeekValue) {
         if (date == 25 || dayOfWeekValue == 7) {

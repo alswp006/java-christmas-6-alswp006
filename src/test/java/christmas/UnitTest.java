@@ -74,6 +74,20 @@ public class UnitTest extends NsTest {
         });
     }
 
+    @DisplayName("샴페인 증정 확인")
+    @Test
+    void benefitTest() {
+        assertSimpleTest(() -> {
+            run("3", "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
+            assertThat(output()).contains(
+                    "크리스마스 디데이 할인: -1,200원",
+                    "평일 할인: -4,046원",
+                    "특별 할인: -1,000원",
+                    "증정 이벤트: -25,000원",
+                    "135,754원");
+        });
+    }
+
 
     @Override
     public void runMain() {
