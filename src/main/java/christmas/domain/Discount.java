@@ -26,17 +26,18 @@ public class Discount {
     public int applyDiscounts(Map<String, Integer> menus, int date) {
         int weekValue = getWeekValue(date);
         String discountMenuType = getMenuType(weekValue);
-
-        int totalDiscount = menus.entrySet().stream()
-                .filter(menu -> discountMenuType.equals(Menu.getMenuType(menu.getKey())))
-                .mapToInt(menu -> weekDiscount(Menu.getMenuType(menu.getKey()), menu.getValue()))
-                .sum();
-
+        int totalDiscount = weekDiscountPrice(menus, discountMenuType);
         totalDiscount += specialDiscount(date, weekValue) + chrismasDiscount(date);
 
         return totalDiscount;
     }
 
+    private int weekDiscountPrice(Map<String, Integer> menus, String discountMenuType){
+        return menus.entrySet().stream()
+                .filter(menu -> discountMenuType.equals(Menu.getMenuType(menu.getKey())))
+                .mapToInt(menu -> weekDiscount(Menu.getMenuType(menu.getKey()), menu.getValue()))
+                .sum();
+    }
     private int weekDiscount(String menuType, int quantity) {
         int discount = 2023 * quantity;
 
@@ -55,8 +56,8 @@ public class Discount {
         }
     }
 
-    private int specialDiscount(int date, int dayOfWeekValue) {
-        if (date == 25 || dayOfWeekValue == 7) {
+    private int specialDiscount(int date, int weekValue) {
+        if (date == 25 || weekValue == 7) {
             discounts.add(String.format("특별 할인: -%,d원", DISCOUNT));
             return DISCOUNT;
         }
