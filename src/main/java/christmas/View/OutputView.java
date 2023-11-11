@@ -19,7 +19,7 @@ public class OutputView {
         System.out.println(ORDERMENU);
         orderMenus.
                 forEach((key, value) -> System.out.println(key + " " + value + "개"));
-
+        System.out.println();
     }
 
     public void printTotalPrice(int totalPrice) {
@@ -28,9 +28,16 @@ public class OutputView {
         System.out.println();
     }
 
+    public void printBenefit(String champagne){
+        System.out.println(freeGift);
+        System.out.println(champagne);
+        System.out.println();
+    }
+
     public void printDiscountDetails(String discountDetails){
         System.out.println(DISCOUNTDETAILS);
         System.out.println(discountDetails);
+        System.out.println();
     }
 
     public void printApplyDiscountPrice(int price){
