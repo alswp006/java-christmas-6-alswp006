@@ -56,7 +56,7 @@ public class UnitTest extends NsTest {
     @Test
     void discountTest() {
         assertSimpleTest(() -> {
-            run("26", "타파스-1,제로콜라-1");
+            run("26", "타파스-1,제로콜라-2");
             assertThat(output()).contains("없음");
         });
     }
@@ -124,9 +124,9 @@ public class UnitTest extends NsTest {
     @DisplayName("총 금액이 10000원 미만일 시 이벤트 적용 x")
     @Test
     void totalPriceTest(){
-        assertSimpleTest(() -> {
-            run("3", "시저샐러드-1");
-        });
+        assertSimpleTest(() ->
+            run("3", "시저샐러드-1")
+        );
     }
 
     @Override

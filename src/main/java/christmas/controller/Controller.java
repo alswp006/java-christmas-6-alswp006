@@ -20,14 +20,12 @@ public class Controller {
         outputView.eventMessage(date);
         outputView.printMenu(orderMenu);
         int totalPrice = Menu.totalPrice(orderMenu);
+        int applyDiscountPrice = totalPrice;
+        outputView.printTotalPrice(totalPrice);
         if (totalPrice < 10000){
-            outputView.printUnappliedDiscount(totalPrice);
+            outputView.printUnappliedDiscount();
             return;
         }
-        int applyDiscountPrice = totalPrice;
-
-        outputView.printTotalPrice(totalPrice);
-
 
 
         String champagne = benefit.champagneFree(totalPrice);
