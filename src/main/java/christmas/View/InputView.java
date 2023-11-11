@@ -29,15 +29,19 @@ public class InputView {
             try {
                 String input = Console.readLine();
                 InputValidation.inputMenuCheck(input, menuNames);
-
-                Map<String, Integer> menus = Arrays.stream(input.split(","))
-                        .map(item -> item.split("-"))
-                        .collect(Collectors.toMap(items -> items[0], items -> Integer.parseInt(items[1])));
-
+                Map<String, Integer> menus = getMenu(input);
+                InputValidation.menuQuantityExceed(menus);
                 InputValidation.orderMenuAllDrink(menus, drinks);
+
                 return menus;
             } catch (IllegalArgumentException e) {
             }
         }
+    }
+
+    private Map<String, Integer> getMenu(String input){
+        return Arrays.stream(input.split(","))
+                .map(item -> item.split("-"))
+                .collect(Collectors.toMap(items -> items[0], items -> Integer.parseInt(items[1])));
     }
 }

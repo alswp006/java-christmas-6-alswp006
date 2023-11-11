@@ -82,4 +82,13 @@ public class InputValidation {
             throw new IllegalArgumentException();
         }
     }
+
+    public static void menuQuantityExceed(Map<String, Integer> menus){
+        int menuQuantity = menus.values().stream().mapToInt(Integer::intValue).sum();
+
+        if (menuQuantity > 20){
+            System.out.println("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다!");
+            throw new IllegalArgumentException();
+        }
+    }
 }

@@ -112,6 +112,17 @@ public class UnitTest extends NsTest {
         });
     }
 
+    @DisplayName("메뉴 20개 초과 시 안내메시지 출력")
+    @Test
+    void menuQuantityExceedTest(){
+        assertSimpleTest(() -> {
+            run("3", "시저샐러드-10,티본스테이크-11", "티본스테이크-2");
+            assertThat(output()).contains("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다!");
+        });
+    }
+
+
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
