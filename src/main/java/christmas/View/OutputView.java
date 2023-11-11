@@ -3,7 +3,6 @@ package christmas.View;
 import java.util.Map;
 
 public class OutputView {
-    private final String eventBadge = "<12월 이벤트 배지>";
 
     public void eventMessage(int date) {
         String EVENTMESSAGE = String.format("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", date);
@@ -54,7 +53,7 @@ public class OutputView {
     }
 
     public void printTotalBenefitPrice(int price){
-        String totalBenefitPrice = "<총혜택 금액>";
+        String totalBenefitPrice = "<총택 금액>";
 
         System.out.println(totalBenefitPrice);
         System.out.printf("-%,d원\n", price);
@@ -62,6 +61,8 @@ public class OutputView {
     }
 
     public void printEventBadge(String badge){
+        String eventBadge = "<12월 이벤트 배지>";
+
         System.out.println(eventBadge);
         System.out.println(badge);
     }

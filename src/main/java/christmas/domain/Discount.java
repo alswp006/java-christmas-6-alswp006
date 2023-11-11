@@ -11,7 +11,6 @@ public class Discount {
     List<String> discounts;
     final int[] WEEKENDVALUE = {5, 6};
     private final int DISCOUNT = 1000;
-    private final int DAILY_INCREASE = 100;
 
     public Discount() {
         this.discounts = new ArrayList<>();
@@ -68,6 +67,8 @@ public class Discount {
         int discountPrice = 0;
 
         if (date <= 25) {
+            int DAILY_INCREASE = 100;
+
             discountPrice = DISCOUNT + (date - 1) * DAILY_INCREASE;
         }
         if (discountPrice != 0) {
