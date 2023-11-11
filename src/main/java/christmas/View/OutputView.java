@@ -66,4 +66,14 @@ public class OutputView {
         System.out.println(eventBadge);
         System.out.println(badge);
     }
+
+    public void printUnappliedDiscount(int Price){
+        String unapliedDiscountMessage = "총주문 금액 10,000원 이상부터 이벤트가 적용됩니다.";
+        String payment = "<예상 결제 금액>";
+
+        System.out.println(payment);
+        System.out.printf("%,d원\n\n", Price);
+        System.out.println(unapliedDiscountMessage);
+
+    }
 }

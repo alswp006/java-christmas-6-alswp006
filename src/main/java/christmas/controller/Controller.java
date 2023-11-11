@@ -20,8 +20,16 @@ public class Controller {
         outputView.eventMessage(date);
         outputView.printMenu(orderMenu);
         int totalPrice = Menu.totalPrice(orderMenu);
+        if (totalPrice < 10000){
+            outputView.printUnappliedDiscount(totalPrice);
+            return;
+        }
+        int applyDiscountPrice = totalPrice;
 
         outputView.printTotalPrice(totalPrice);
+
+
+
         String champagne = benefit.champagneFree(totalPrice);
         outputView.printBenefit(champagne);
         discount.champagneFree(champagne);
@@ -32,7 +40,8 @@ public class Controller {
         int benefitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
         outputView.printDiscountDetails(discountDetails);
         outputView.printTotalBenefitPrice(benefitTotalPrice);
-        outputView.printApplyDiscountPrice(totalPrice - totalDiscount);
+        applyDiscountPrice -= totalDiscount;
+        outputView.printApplyDiscountPrice(applyDiscountPrice);
         outputView.printEventBadge(benefit.eventbadge(benefitTotalPrice));
     }
 }

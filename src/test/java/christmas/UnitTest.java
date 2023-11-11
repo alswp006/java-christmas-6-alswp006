@@ -121,7 +121,13 @@ public class UnitTest extends NsTest {
         });
     }
 
-
+    @DisplayName("총 금액이 10000원 미만일 시 이벤트 적용 x")
+    @Test
+    void totalPriceTest(){
+        assertSimpleTest(() -> {
+            run("3", "시저샐러드-1");
+        });
+    }
 
     @Override
     public void runMain() {
