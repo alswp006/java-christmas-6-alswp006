@@ -103,6 +103,15 @@ public class UnitTest extends NsTest {
         });
     }
 
+    @DisplayName("음료만 주문시 안내 메시지 출력")
+    @Test
+    void orderDrink(){
+        assertSimpleTest(() -> {
+            run("3", "제로콜라-3", "티본스테이크-2");
+            assertThat(output()).contains("음료만 주문할 수 없습니다!");
+        });
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});

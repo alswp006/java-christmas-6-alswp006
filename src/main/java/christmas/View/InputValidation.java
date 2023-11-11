@@ -72,11 +72,12 @@ public class InputValidation {
     }
 
     public static void orderMenuAllDrink(Map<String, Integer> menus, List<String> drinks){
-        for (String drink : drinks){
-            menus.remove(drink);
-        }
 
-        if (menus.isEmpty()){
+        int count = (int) drinks.stream()
+                .filter(menus::containsKey)
+                .count();
+
+        if (count == menus.size()){
             System.out.println("음료만 주문할 수 없습니다!");
             throw new IllegalArgumentException();
         }
