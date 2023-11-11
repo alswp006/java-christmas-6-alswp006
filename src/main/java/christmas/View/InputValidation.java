@@ -2,6 +2,7 @@ package christmas.View;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class InputValidation {
     private static final String ERROR_DATE = "[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.";
@@ -70,4 +71,14 @@ public class InputValidation {
         }
     }
 
+    public static void orderMenuAllDrink(Map<String, Integer> menus, List<String> drinks){
+        for (String drink : drinks){
+            menus.remove(drink);
+        }
+
+        if (menus.isEmpty()){
+            System.out.println("음료만 주문할 수 없습니다!");
+            throw new IllegalArgumentException();
+        }
+    }
 }

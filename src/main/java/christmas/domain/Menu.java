@@ -53,12 +53,13 @@ public enum Menu {
                 .sum();
     }
 
-    static Menu findMenuByName(String menuName) {
+    public static Menu findMenuByName(String menuName) {
         return Arrays.stream(Menu.values())
                 .filter(menu -> menu.getMenuName().equals(menuName))
                 .findFirst()
                 .orElse(null);
     }
+
     public static String getMenuType(String menuName) {
         return Arrays.stream(Menu.values())
                 .filter(menu -> menu.getMenuName().equals(menuName))
@@ -73,4 +74,10 @@ public enum Menu {
         return menu.getPrice() * quantity;
     }
 
+    public static List<String> getDrinkMenuNames() {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getType().equals("drink"))
+                .map(Menu::getMenuName)
+                .collect(Collectors.toList());
+    }
 }

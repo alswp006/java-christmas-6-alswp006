@@ -32,12 +32,13 @@ public class Discount {
         return totalDiscount;
     }
 
-    private int weekDiscountPrice(Map<String, Integer> menus, String discountMenuType){
+    private int weekDiscountPrice(Map<String, Integer> menus, String discountMenuType) {
         return menus.entrySet().stream()
                 .filter(menu -> discountMenuType.equals(Menu.getMenuType(menu.getKey())))
                 .mapToInt(menu -> weekDiscount(Menu.getMenuType(menu.getKey()), menu.getValue()))
                 .sum();
     }
+
     private int weekDiscount(String menuType, int quantity) {
         int discount = 2023 * quantity;
 
@@ -50,8 +51,9 @@ public class Discount {
 
         return discount;
     }
-    public void champagneFree(String champagne){
-        if (!champagne.equals("없음")){
+
+    public void champagneFree(String champagne) {
+        if (!champagne.equals("없음")) {
             discounts.add("증정 이벤트: -25,000원");
         }
     }
@@ -97,4 +99,5 @@ public class Discount {
         }
         return String.join("\n", discounts);
     }
+
 }
