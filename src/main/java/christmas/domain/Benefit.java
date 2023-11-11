@@ -10,4 +10,14 @@ public class Benefit {
 
         return champagne;
     }
+
+    public int benefitPrice(int totalPrice){
+        int benefit = 0;
+
+        if (totalPrice >= 120000){
+            benefit = 25000;
+        }
+
+        return benefit;
+    }
 }

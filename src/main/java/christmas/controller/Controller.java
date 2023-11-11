@@ -21,13 +21,20 @@ public class Controller {
         outputView.eventMessage(date);
         outputView.printMenu(orderMenu);
         int totalPrice = Menu.totalPrice(orderMenu);
+
         outputView.printTotalPrice(totalPrice);
         String champagne = benefit.champagneFree(totalPrice);
         outputView.printBenefit(champagne);
         discount.champagneFree(champagne);
+
         int totalDiscount = discount.applyDiscounts(orderMenu, date);
         String discountDetails = discount.getDiscountDetails();
+
+
+        int befitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
         outputView.printDiscountDetails(discountDetails);
+        outputView.printTotalBenefitPrice(befitTotalPrice);
         outputView.printApplyDiscountPrice(totalPrice - totalDiscount);
+
     }
 }

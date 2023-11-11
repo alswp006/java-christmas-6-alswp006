@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class Discount {
     List<String> discounts;
-    final int[] weekEnd = {5, 6};
+    final int[] WEEKENDVALUE = {5, 6};
     private final int DISCOUNT = 1000;
     private final int DAILY_INCREASE = 100;
 
@@ -81,7 +81,7 @@ public class Discount {
     private String getMenuType(int weekValue) {
         String discountMenuType = "dessert";
 
-        if (IntStream.of(weekEnd).anyMatch(day -> day == weekValue)) {
+        if (IntStream.of(WEEKENDVALUE).anyMatch(day -> day == weekValue)) {
             discountMenuType = "main";
         }
 
