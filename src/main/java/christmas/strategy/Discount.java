@@ -1,4 +1,6 @@
-package christmas.domain;
+package christmas.strategy;
+
+import christmas.strategy.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

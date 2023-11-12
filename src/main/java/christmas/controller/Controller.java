@@ -3,8 +3,8 @@ package christmas.controller;
 import christmas.View.InputView;
 import christmas.View.OutputView;
 import christmas.domain.Benefit;
-import christmas.domain.Discount;
-import christmas.domain.DiscountStrategy;
+import christmas.strategy.Discount;
+import christmas.strategy.DiscountStrategy;
 import christmas.domain.Menu;
 
 import java.util.List;
