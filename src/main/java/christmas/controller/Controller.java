@@ -4,42 +4,61 @@ import christmas.View.InputView;
 import christmas.View.OutputView;
 import christmas.domain.Benefit;
 import christmas.domain.Discount;
+import christmas.domain.DiscountStrategy;
 import christmas.domain.Menu;
 
+import java.util.List;
 import java.util.Map;
 
 public class Controller {
     InputView input = new InputView();
     OutputView outputView = new OutputView();
-    Discount discount   = new Discount();
+    Discount discount = new Discount();
     Benefit benefit = new Benefit();
 
     public void inputProcess() {
         int date = input.readDate();
         Map<String, Integer> orderMenu = input.readMenu(Menu.getMenuNames(), Menu.getDrinkMenuNames());
+
         outputView.eventMessage(date);
         outputView.printMenu(orderMenu);
+
         int totalPrice = Menu.totalPrice(orderMenu);
         int applyDiscountPrice = totalPrice;
+
         outputView.printTotalPrice(totalPrice);
-        if (totalPrice < 10000){
+        outputView.printBenefit(totalPrice);
+        if (totalPrice < 10000) {
             outputView.printUnappliedDiscount();
             return;
         }
+        discount.champagneFree(totalPrice);
 
+        List<DiscountStrategy> applicableStrategies = discount.getApplicableStrategies(date);
+        int totalDiscount = 0;
+        for (DiscountStrategy strategy : applicableStrategies) {
+            discount.setDiscountStrategy(strategy);
+            totalDiscount += discount.applyDiscounts(orderMenu, date);
+        }
 
-        String champagne = benefit.champagneFree(totalPrice);
-        outputView.printBenefit(champagne);
-        discount.champagneFree(champagne);
+        if (totalDiscount == 0) {
+            System.out.println("없음");
+            return;
+        }
 
-        int totalDiscount = discount.applyDiscounts(orderMenu, date);
-        String discountDetails = discount.getDiscountDetails();
+        List<String> discountDetails = discount.getDiscountDetails();
+        if (discountDetails.isEmpty()) {
+            System.out.println("없음");
+        } else {
+            outputView.printDiscountDetails(discountDetails);
+        }
 
         int benefitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
-        outputView.printDiscountDetails(discountDetails);
         outputView.printTotalBenefitPrice(benefitTotalPrice);
+
         applyDiscountPrice -= totalDiscount;
         outputView.printApplyDiscountPrice(applyDiscountPrice);
         outputView.printEventBadge(benefit.eventbadge(benefitTotalPrice));
     }
 }
+

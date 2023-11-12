@@ -1,5 +1,6 @@
 package christmas.View;
 
+import java.util.List;
 import java.util.Map;
 
 public class OutputView {
@@ -28,21 +29,30 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printBenefit(String champagne) {
+    public void printBenefit(int totalPrice) {
         String freeGift = "<증정 메뉴>";
+        int champagne = totalPrice/120000;
 
         System.out.println(freeGift);
-        System.out.println(champagne);
-        System.out.println();
+
+        if (champagne > 0) {
+            System.out.println("샴페인 1개\n");
+            return;
+        }
+
+        System.out.println("없음\n");
     }
 
-    public void printDiscountDetails(String discountDetails) {
+    public void printDiscountDetails(List<String> discountDetails) {
         String DISCOUNTDETAILS = "<혜택 내역>";
 
         System.out.println(DISCOUNTDETAILS);
-        System.out.println(discountDetails);
+        for (String detail : discountDetails) {
+            System.out.println(detail);
+        }
         System.out.println();
     }
+
 
     public void printApplyDiscountPrice(int price) {
         String applyDiscountPrice = "<할인 후 예상 결제 금액>";
