@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Discount {
     private DiscountStrategy discountStrategy;
-    private List<String> discountDetails = new ArrayList<>();
+    private final List<String> discountDetails = new ArrayList<>();
 
     private static final List<DiscountStrategy> strategies = Arrays.asList(
             new WeekdayDiscount(),
