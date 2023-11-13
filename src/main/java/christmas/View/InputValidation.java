@@ -78,7 +78,7 @@ public class InputValidation {
                 .count();
 
         if (count == menus.size()){
-            System.out.println("음료만 주문할 수 없습니다!");
+            System.out.println("음료만 주문할 수 없습니다!\n다시 입력해주세요.");
             throw new IllegalArgumentException();
         }
     }
@@ -87,7 +87,7 @@ public class InputValidation {
         int menuQuantity = menus.values().stream().mapToInt(Integer::intValue).sum();
 
         if (menuQuantity > 20){
-            System.out.println("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다!");
+            System.out.println("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다!\n다시 입력해주세요.");
             throw new IllegalArgumentException();
         }
     }

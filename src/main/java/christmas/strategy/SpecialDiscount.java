@@ -16,6 +16,7 @@ public class SpecialDiscount implements DiscountStrategy {
         LocalDate localDate = LocalDate.of(2023, 12, date);
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
         int date_value = dayOfWeek.getValue();
+
         return date_value == 25 || date_value == 7;
     }
 

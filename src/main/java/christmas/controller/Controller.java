@@ -15,50 +15,52 @@ public class Controller {
     OutputView outputView = new OutputView();
     Discount discount = new Discount();
     Benefit benefit = new Benefit();
+    Map<String, Integer> orderMenu;
+    int date;
 
-    public void inputProcess() {
-        int date = input.readDate();
-        Map<String, Integer> orderMenu = input.readMenu(Menu.getMenuNames(), Menu.getDrinkMenuNames());
+    public void play(){
+        inputProcess();
+        outputProcess();
+    }
+
+
+    private void inputProcess() {
+        date = input.readDate();
+        orderMenu = input.readMenu(Menu.getMenuNames(), Menu.getDrinkMenuNames());
 
         outputView.eventMessage(date);
         outputView.printMenu(orderMenu);
+    }
 
+    private void outputProcess(){
         int totalPrice = Menu.totalPrice(orderMenu);
-        int applyDiscountPrice = totalPrice;
 
         outputView.printTotalPrice(totalPrice);
         outputView.printBenefit(totalPrice);
-        if (totalPrice < 10000) {
-            outputView.printUnappliedDiscount();
-            return;
-        }
+
         discount.champagneFree(totalPrice);
 
-        List<DiscountStrategy> applicableStrategies = discount.getApplicableStrategies(date);
-        int totalDiscount = 0;
-        for (DiscountStrategy strategy : applicableStrategies) {
-            discount.setDiscountStrategy(strategy);
-            totalDiscount += discount.applyDiscounts(orderMenu, date);
-        }
-
-        if (totalDiscount == 0) {
-            System.out.println("없음");
-            return;
-        }
-
-        List<String> discountDetails = discount.getDiscountDetails();
-        if (discountDetails.isEmpty()) {
-            System.out.println("없음");
-        } else {
-            outputView.printDiscountDetails(discountDetails);
-        }
-
+        int totalDiscount = discountProcess(totalPrice);
+        outputView.printDiscountDetails(discount.getDiscountDetails());
         int benefitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
         outputView.printTotalBenefitPrice(benefitTotalPrice);
-
-        applyDiscountPrice -= totalDiscount;
-        outputView.printApplyDiscountPrice(applyDiscountPrice);
+        outputView.printApplyDiscountPrice(totalPrice - totalDiscount);
         outputView.printEventBadge(benefit.eventbadge(benefitTotalPrice));
+    }
+
+    private int discountProcess(int totalPrice){
+        if (totalPrice < 10000) {
+            return 0;
+        }
+
+        List<DiscountStrategy> applicableStrategies = discount.getApplicableStrategies(date);
+
+        return applicableStrategies.stream()
+                .mapToInt(strategy -> {
+                    discount.setDiscountStrategy(strategy);
+                    return discount.applyDiscounts(orderMenu, date);
+                })
+                .sum();
     }
 }
 

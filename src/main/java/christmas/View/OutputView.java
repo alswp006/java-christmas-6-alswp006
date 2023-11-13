@@ -47,9 +47,11 @@ public class OutputView {
         String DISCOUNTDETAILS = "<혜택 내역>";
 
         System.out.println(DISCOUNTDETAILS);
-        for (String detail : discountDetails) {
-            System.out.println(detail);
+        if (discountDetails.isEmpty()){
+            System.out.println("없음\n");
+            return;
         }
+        discountDetails.forEach(System.out::println);
         System.out.println();
     }
 
@@ -63,11 +65,14 @@ public class OutputView {
     }
 
     public void printTotalBenefitPrice(int price){
-        String totalBenefitPrice = "<총혜택 금액>";
+        String totalBenefitPriceMessage = "<총혜택 금액>";
+        String totalBenefitPrice = String.format("-%,d원\n", price);
 
+        System.out.println(totalBenefitPriceMessage);
+        if (price == 0){
+            totalBenefitPrice = totalBenefitPrice.substring(1);
+        }
         System.out.println(totalBenefitPrice);
-        System.out.printf("-%,d원\n", price);
-        System.out.println();
     }
 
     public void printEventBadge(String badge){

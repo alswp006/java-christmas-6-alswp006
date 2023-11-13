@@ -22,13 +22,16 @@ public class Discount {
     }
 
     public int applyDiscounts(Map<String, Integer> menus, int date) {
-        if (discountStrategy != null) {
-            int discountAmount = discountStrategy.applyDiscount(menus, date);
+        int totalDiscount = 0;
+        int discountAmount = discountStrategy.applyDiscount(menus, date);
+
+        if (discountStrategy != null && discountAmount!=0) {
             String discountAmountStr = String.format(": -%,d원",discountAmount);
             discountDetails.add(discountStrategy.getDiscountName() + discountAmountStr);
-            return discountAmount;
+            totalDiscount += discountAmount;
         }
-        return 0;
+
+        return totalDiscount;
     }
 
     public List<String> getDiscountDetails() {
