@@ -18,13 +18,7 @@ public class Controller {
     Map<String, Integer> orderMenu;
     int date;
 
-    public void play(){
-        inputProcess();
-        outputProcess();
-    }
-
-
-    private void inputProcess() {
+    public void inputProcess() {
         date = input.readDate();
         orderMenu = input.readMenu(Menu.getMenuNames(), Menu.getDrinkMenuNames());
 
@@ -32,7 +26,7 @@ public class Controller {
         outputView.printMenu(orderMenu);
     }
 
-    private void outputProcess(){
+    public void outputProcess(){
         int totalPrice = Menu.totalPrice(orderMenu);
 
         outputView.printTotalPrice(totalPrice);
