@@ -9,7 +9,6 @@ public class SpecialDiscount implements DiscountStrategy {
 
     @Override
     public int applyDiscount(Map<String, Integer> menus, int date) {
-        if (!isApplicable(date)) return 0;
         return DISCOUNT;
     }
 

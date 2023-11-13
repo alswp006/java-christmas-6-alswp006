@@ -9,14 +9,13 @@ import java.util.stream.IntStream;
 
 public class WeekdayDiscount implements DiscountStrategy {
     private static final int[] WEEKDAY_DAYS = {1, 2, 3, 4, 7};
-    private static final int DISCOUNT_PER_ITEM = 2023;
+    private static final int DISCOUNT_DESSERT = 2023;
 
     @Override
     public int applyDiscount(Map<String, Integer> menus, int date) {
-        if (!isApplicable(date)) return 0;
         return menus.entrySet().stream()
                 .filter(entry -> Menu.getMenuType(entry.getKey()).equals("dessert"))
-                .mapToInt(entry -> DISCOUNT_PER_ITEM * entry.getValue())
+                .mapToInt(entry -> DISCOUNT_DESSERT * entry.getValue())
                 .sum();
     }
 

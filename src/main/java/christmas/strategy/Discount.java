@@ -1,7 +1,5 @@
 package christmas.strategy;
 
-import christmas.strategy.*;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +25,7 @@ public class Discount {
         if (discountStrategy != null) {
             int discountAmount = discountStrategy.applyDiscount(menus, date);
             String discountAmountStr = String.format(": -%,d원",discountAmount);
-            discountDetails.add(discountStrategy.getDiscountName() + discountAmountStr); // 수정된 부분
+            discountDetails.add(discountStrategy.getDiscountName() + discountAmountStr);
             return discountAmount;
         }
         return 0;
