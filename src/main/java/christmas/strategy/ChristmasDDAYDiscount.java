@@ -15,10 +15,14 @@ public class ChristmasDDAYDiscount implements DiscountStrategy {
 
     @Override
     public boolean isApplicable(int date) {
-        return date <= 25;
+        int christmas = 25;
+
+        return date <= christmas;
     }
 
     public String getDiscountName() {
-        return "크리스마스 디데이 할인";
+        String christmasDDayDiscountMessage = "크리스마스 디데이 할인";
+
+        return christmasDDayDiscountMessage;
     }
 }

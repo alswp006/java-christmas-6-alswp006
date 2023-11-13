@@ -13,15 +13,22 @@ public class SpecialDiscount implements DiscountStrategy {
     }
 
     public boolean isApplicable(int date) {
-        LocalDate localDate = LocalDate.of(2023, 12, date);
+        int year = 2023;
+        int month = 12;
+        int isSunday = 7;
+        int isChristmas = 25;
+
+        LocalDate localDate = LocalDate.of(year, month, date);
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
         int date_value = dayOfWeek.getValue();
 
-        return date_value == 25 || date_value == 7;
+        return date == isChristmas || date_value == isSunday;
     }
 
     public String getDiscountName() {
-        return "특별 할인";
+        String specialDiscountMessage = "특별 할인";
+
+        return specialDiscountMessage;
     }
 
 }

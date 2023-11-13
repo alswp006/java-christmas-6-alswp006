@@ -7,6 +7,8 @@ public class WeekendDiscount extends WeekDiscount {
 
     @Override
     public String getDiscountName() {
-        return "주말 할인";
+        String weekendDiscountName = "주말 할인";
+
+        return weekendDiscountName;
     }
 }

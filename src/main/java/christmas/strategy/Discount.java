@@ -25,8 +25,8 @@ public class Discount {
         int totalDiscount = 0;
         int discountAmount = discountStrategy.applyDiscount(menus, date);
 
-        if (discountStrategy != null && discountAmount!=0) {
-            String discountAmountStr = String.format(": -%,d원",discountAmount);
+        if (discountStrategy != null && discountAmount != 0) {
+            String discountAmountStr = String.format(": -%,d원", discountAmount);
             discountDetails.add(discountStrategy.getDiscountName() + discountAmountStr);
             totalDiscount += discountAmount;
         }
@@ -39,8 +39,11 @@ public class Discount {
     }
 
     public void champagneFree(int totalPrice) {
-        if (totalPrice >= 120000) {
-            discountDetails.add("증정 이벤트: -25,000원");
+        String benefitMessage = "증정 이벤트: -25,000원";
+        int applyBenefitPrice = 120000;
+
+        if (totalPrice >= applyBenefitPrice) {
+            discountDetails.add(benefitMessage);
         }
     }
 

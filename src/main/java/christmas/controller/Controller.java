@@ -49,7 +49,9 @@ public class Controller {
     }
 
     private int discountProcess(int totalPrice){
-        if (totalPrice < 10000) {
+        int minimumPrice = 10000;
+
+        if (totalPrice < minimumPrice) {
             return 0;
         }
 

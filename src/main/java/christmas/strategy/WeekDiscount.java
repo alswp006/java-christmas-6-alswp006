@@ -27,11 +27,17 @@ public abstract class WeekDiscount implements DiscountStrategy {
     }
 
     public boolean isApplicable(int date) {
-        LocalDate localDate = LocalDate.of(2023, 12, date);
+        int year = 2023;
+        int month = 12;
+
+        LocalDate localDate = LocalDate.of(year, month, date);
         DayOfWeek dayOfWeek = localDate.getDayOfWeek();
         int date_value = dayOfWeek.getValue();
 
         return IntStream.of(applicableDays).anyMatch(day -> day == date_value);
     }
+
+    public abstract String getDiscountName();
+
 }
 
