@@ -1,7 +1,5 @@
 package christmas.strategy;
 
-import christmas.strategy.DiscountStrategy;
-
 import java.util.Map;
 
 public class ChristmasDDAYDiscount implements DiscountStrategy {

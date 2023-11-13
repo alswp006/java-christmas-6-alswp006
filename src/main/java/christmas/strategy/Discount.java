@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Discount {
-    private DiscountStrategy discountStrategy;
     private final List<String> discountDetails = new ArrayList<>();
 
     private static final List<DiscountStrategy> strategies = Arrays.asList(
@@ -17,28 +16,40 @@ public class Discount {
             new SpecialDiscount()
     );
 
-    public void setDiscountStrategy(DiscountStrategy discountStrategy) {
-        this.discountStrategy = discountStrategy;
-    }
-
-    public int applyDiscounts(Map<String, Integer> menus, int date) {
-        int totalDiscount = 0;
-        int discountAmount = discountStrategy.applyDiscount(menus, date);
-
-        if (discountStrategy != null && discountAmount != 0) {
-            String discountAmountStr = String.format(": -%,d원", discountAmount);
-            discountDetails.add(discountStrategy.getDiscountName() + discountAmountStr);
-            totalDiscount += discountAmount;
+    public List<String> discountDetails(Map<String, Integer> menus, int date, int totalPrice){
+        if (totalPrice >= 10000){
+            applyDiscounts(menus, date);
+            applyBenefitEvevnt(totalPrice);
         }
 
-        return totalDiscount;
-    }
-
-    public List<String> getDiscountDetails() {
         return discountDetails;
     }
+    private void applyDiscounts(Map<String, Integer> menus, int date) {
 
-    public void champagneFree(int totalPrice) {
+        for (DiscountStrategy strategy : getApplicableStrategies(date)) {
+            int discountAmount = strategy.applyDiscount(menus, date);
+
+            if (discountAmount != 0) {
+                String discountAmountStr = String.format(": -%,d원", discountAmount);
+                discountDetails.add(strategy.getDiscountName() + discountAmountStr);
+            }
+        }
+
+    }
+
+    public int totalDiscount(Map<String, Integer> menus, int date){
+        int totalDiscountPrice = 0;
+
+        for (DiscountStrategy strategy : getApplicableStrategies(date)){
+            int discountAmount = strategy.applyDiscount(menus, date);
+
+            totalDiscountPrice += discountAmount;
+        }
+
+        return totalDiscountPrice;
+    }
+
+    private void applyBenefitEvevnt(int totalPrice) {
         String benefitMessage = "증정 이벤트: -25,000원";
         int applyBenefitPrice = 120000;
 
@@ -47,7 +58,7 @@ public class Discount {
         }
     }
 
-    public List<DiscountStrategy> getApplicableStrategies(int date) {
+    private List<DiscountStrategy> getApplicableStrategies(int date) {
         return strategies.stream()
                 .filter(strategy -> strategy.isApplicable(date))
                 .collect(Collectors.toList());

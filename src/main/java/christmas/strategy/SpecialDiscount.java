@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.util.Map;
 
 public class SpecialDiscount implements DiscountStrategy {
-    private static final int DISCOUNT = 1000;
+    private static final int SPECIAL_DISCOUNT = 1000;
 
     @Override
     public int applyDiscount(Map<String, Integer> menus, int date) {
-        return DISCOUNT;
+        return SPECIAL_DISCOUNT;
     }
 
     public boolean isApplicable(int date) {
