@@ -27,9 +27,8 @@ public class Controller {
     public void outputProcess() {
         Discount discount = new Discount();
         Benefit benefit = new Benefit();
-
         int totalPrice = Menu.totalPrice(orderMenu);
-        int totalDiscount = discount.totalDiscount(orderMenu, date);
+        int totalDiscount = discount.totalDiscount(orderMenu, date, totalPrice);
         int benefitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
         List<String> discountDetails = discount.discountDetails(orderMenu, date, totalPrice);
 

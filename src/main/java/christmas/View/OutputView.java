@@ -69,9 +69,11 @@ public class OutputView {
         String totalBenefitPrice = String.format("-%,d원\n", price);
 
         System.out.println(totalBenefitPriceMessage);
+
         if (price == 0){
             totalBenefitPrice = totalBenefitPrice.substring(1);
         }
+
         System.out.println(totalBenefitPrice);
     }
 

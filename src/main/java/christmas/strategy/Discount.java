@@ -37,13 +37,15 @@ public class Discount {
 
     }
 
-    public int totalDiscount(Map<String, Integer> menus, int date){
+    public int totalDiscount(Map<String, Integer> menus, int date, int totalPrice){
         int totalDiscountPrice = 0;
 
-        for (DiscountStrategy strategy : getApplicableStrategies(date)){
-            int discountAmount = strategy.applyDiscount(menus, date);
+        if (totalPrice >= 10000){
+            List<DiscountStrategy> strategies = getApplicableStrategies(date);
 
-            totalDiscountPrice += discountAmount;
+            totalDiscountPrice = strategies.stream()
+                    .mapToInt(strategy -> strategy.applyDiscount(menus, date))
+                    .sum();
         }
 
         return totalDiscountPrice;

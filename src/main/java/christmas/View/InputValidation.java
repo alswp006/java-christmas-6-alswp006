@@ -10,16 +10,39 @@ public class InputValidation {
 
     public static void inputDateCheck(String input){
         int date = inputDateTypeCheck(input);
+
         inputDataNumberCheck(date);
     }
 
     public static void inputMenuCheck(String input, List<String> menu){
         String[] items = input.split(",");
+
         inputFormatCheck(input);
         Arrays.stream(items).forEach(item -> {
             inputMenuMatchCheck(item, menu);
             inputMenuNumberCheck(item);
         });
+    }
+
+    public static void orderMenuAllDrink(Map<String, Integer> menus, List<String> drinks){
+
+        int count = (int) drinks.stream()
+                .filter(menus::containsKey)
+                .count();
+
+        if (count == menus.size()){
+            System.out.println("음료만 주문할 수 없습니다!\n다시 입력해주세요.");
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public static void menuQuantityExceed(Map<String, Integer> menus){
+        int menuQuantity = menus.values().stream().mapToInt(Integer::intValue).sum();
+
+        if (menuQuantity > 20){
+            System.out.println("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다!\n다시 입력해주세요.");
+            throw new IllegalArgumentException();
+        }
     }
 
     private static void inputFormatCheck(String input){
@@ -46,7 +69,7 @@ public class InputValidation {
             throw new IllegalArgumentException();
         }
     }
-    public static int inputMenuNumberTypeCheck(String input){
+    private static int inputMenuNumberTypeCheck(String input){
         try {
             return Integer.parseInt(input);
         }catch (NumberFormatException e){
@@ -67,27 +90,6 @@ public class InputValidation {
     private static void inputDataNumberCheck(int date){
         if (date < 1 || date > 31){
             System.out.println(ERROR_DATE);
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public static void orderMenuAllDrink(Map<String, Integer> menus, List<String> drinks){
-
-        int count = (int) drinks.stream()
-                .filter(menus::containsKey)
-                .count();
-
-        if (count == menus.size()){
-            System.out.println("음료만 주문할 수 없습니다!\n다시 입력해주세요.");
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public static void menuQuantityExceed(Map<String, Integer> menus){
-        int menuQuantity = menus.values().stream().mapToInt(Integer::intValue).sum();
-
-        if (menuQuantity > 20){
-            System.out.println("메뉴는 한 번에 최대 20개까지만 주문할 수 있습니다!\n다시 입력해주세요.");
             throw new IllegalArgumentException();
         }
     }
