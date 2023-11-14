@@ -38,14 +38,14 @@ public class Discount {
     }
 
     public int totalDiscount(Map<String, Integer> menus, int date, int totalPrice){
-        int totalDiscountPrice = 0;
+        int totalDiscountPrice = getApplicableStrategies(date).stream()
+                .mapToInt(strategy -> strategy.applyDiscount(menus, date))
+                .sum();
 
-        if (totalPrice >= 10000){
-            List<DiscountStrategy> strategies = getApplicableStrategies(date);
+        if (totalPrice < 10000){
+            System.out.println("총주문 금액 10,000원 이상부터 이벤트가 적용됩니다!\n");
 
-            totalDiscountPrice = strategies.stream()
-                    .mapToInt(strategy -> strategy.applyDiscount(menus, date))
-                    .sum();
+            return 0;
         }
 
         return totalDiscountPrice;
