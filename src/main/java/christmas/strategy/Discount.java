@@ -16,14 +16,15 @@ public class Discount {
             new SpecialDiscount()
     );
 
-    public List<String> discountDetails(Map<String, Integer> menus, int date, int totalPrice){
-        if (totalPrice >= 10000){
+    public List<String> discountDetails(Map<String, Integer> menus, int date, int totalPrice) {
+        if (totalPrice >= 10000) {
             applyDiscounts(menus, date);
             applyBenefitEvevnt(totalPrice);
         }
 
         return discountDetails;
     }
+
     private void applyDiscounts(Map<String, Integer> menus, int date) {
 
         for (DiscountStrategy strategy : getApplicableStrategies(date)) {
@@ -37,12 +38,12 @@ public class Discount {
 
     }
 
-    public int totalDiscount(Map<String, Integer> menus, int date, int totalPrice){
+    public int totalDiscount(Map<String, Integer> menus, int date, int totalPrice) {
         int totalDiscountPrice = getApplicableStrategies(date).stream()
                 .mapToInt(strategy -> strategy.applyDiscount(menus, date))
                 .sum();
 
-        if (totalPrice < 10000){
+        if (totalPrice < 10000) {
             System.out.println("총주문 금액 10,000원 이상부터 이벤트가 적용됩니다!\n");
 
             return 0;

@@ -31,7 +31,7 @@ public class OutputView {
 
     public void printBenefit(int totalPrice) {
         String freeGift = "<증정 메뉴>";
-        int champagne = totalPrice/120000;
+        int champagne = totalPrice / 120000;
 
         System.out.println(freeGift);
 
@@ -47,7 +47,7 @@ public class OutputView {
         String DISCOUNTDETAILS = "<혜택 내역>";
 
         System.out.println(DISCOUNTDETAILS);
-        if (discountDetails.isEmpty()){
+        if (discountDetails.isEmpty()) {
             System.out.println("없음\n");
             return;
         }
@@ -64,30 +64,23 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalBenefitPrice(int price){
+    public void printTotalBenefitPrice(int price) {
         String totalBenefitPriceMessage = "<총혜택 금액>";
         String totalBenefitPrice = String.format("-%,d원\n", price);
 
         System.out.println(totalBenefitPriceMessage);
 
-        if (price == 0){
+        if (price == 0) {
             totalBenefitPrice = totalBenefitPrice.substring(1);
         }
 
         System.out.println(totalBenefitPrice);
     }
 
-    public void printEventBadge(String badge){
+    public void printEventBadge(String badge) {
         String eventBadge = "<12월 이벤트 배지>";
 
         System.out.println(eventBadge);
         System.out.println(badge);
-    }
-
-    public void printUnappliedDiscount(){
-        String unapliedDiscountMessage = "총주문 금액 10,000원 이상부터 이벤트가 적용됩니다.";
-
-        System.out.println(unapliedDiscountMessage);
-
     }
 }

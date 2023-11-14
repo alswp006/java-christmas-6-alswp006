@@ -17,7 +17,7 @@ public class InputView {
                 InputValidation.inputDateCheck(input);
 
                 return Integer.parseInt(input);
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException ignored) {
             }
         }
     }
@@ -30,16 +30,15 @@ public class InputView {
                 String input = Console.readLine();
                 InputValidation.inputMenuCheck(input, menuNames);
                 Map<String, Integer> menus = getMenu(input);
-                InputValidation.menuQuantityExceed(menus);
-                InputValidation.orderMenuAllDrink(menus, drinks);
+                InputValidation.orderValidationCheck(menus, drinks);
 
                 return menus;
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException ignored) {
             }
         }
     }
 
-    private Map<String, Integer> getMenu(String input){
+    private Map<String, Integer> getMenu(String input) {
         return Arrays.stream(input.split(","))
                 .map(item -> item.split("-"))
                 .collect(Collectors.toMap(items -> items[0], items -> Integer.parseInt(items[1])));
