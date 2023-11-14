@@ -10,14 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 public class Controller {
-    InputView input = new InputView();
     OutputView outputView = new OutputView();
-    Discount discount = new Discount();
-    Benefit benefit = new Benefit();
     Map<String, Integer> orderMenu;
     int date;
 
     public void inputProcess() {
+        InputView input = new InputView();
+
         date = input.readDate();
         orderMenu = input.readMenu(Menu.getMenuNames(), Menu.getDrinkMenuNames());
 
@@ -25,16 +24,18 @@ public class Controller {
         outputView.printMenu(orderMenu);
     }
 
-    public void outputProcess(){
+    public void outputProcess() {
+        Discount discount = new Discount();
+        Benefit benefit = new Benefit();
+
         int totalPrice = Menu.totalPrice(orderMenu);
+        int totalDiscount = discount.totalDiscount(orderMenu, date);
+        int benefitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
+        List<String> discountDetails = discount.discountDetails(orderMenu, date, totalPrice);
+
         outputView.printTotalPrice(totalPrice);
         outputView.printBenefit(totalPrice);
-
-        int totalDiscount = discount.totalDiscount(orderMenu, date);
-        List<String> discountDetails = discount.discountDetails(orderMenu, date, totalPrice);
         outputView.printDiscountDetails(discountDetails);
-
-        int benefitTotalPrice = totalDiscount + benefit.benefitPrice(totalPrice);
         outputView.printTotalBenefitPrice(benefitTotalPrice);
         outputView.printApplyDiscountPrice(totalPrice - totalDiscount);
         outputView.printEventBadge(benefit.eventbadge(benefitTotalPrice));
