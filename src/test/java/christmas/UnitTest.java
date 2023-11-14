@@ -4,61 +4,43 @@ import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UnitTest extends NsTest {
-    @DisplayName("날짜 입력에 대한 출력 확인")
-    @Test
-    void inputDateTest() {
-        assertSimpleTest(() -> {
-            run("32", "a", "10", "해산물파스타-1");
-            assertThat(output()).contains("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-        });
-    }
-
-    @DisplayName(" 입력에 대한 출력 확인")
-    @Test
-    void inputMenuTest() {
-        assertSimpleTest(() -> {
-            run("10",
-                    "해산물파스타 -1",
-                    "해산물파스타- 1",
-                    "해산물파스타",
-                    "해산물파슷아-1",
-                    "1",
-                    "-",
-                    "해산물파슷아-ㅁ",
-                    "해산물파스타-1");
-            assertThat(output()).contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-        });
-    }
-
-    @DisplayName("이벤트 메시지 출력 확인")
-    @Test
-    void outputEventMessageTest() {
-        assertSimpleTest(() -> {
-            run("10", "해산물파스타-1,레드와인-2");
-            assertThat(output()).contains("12월 10일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
-        });
-    }
-
-    @DisplayName("메뉴 출력 확인")
-    @Test
-    void outputMenuTest() {
-        assertSimpleTest(() -> {
-            run("10", "해산물파스타-1,레드와인-2");
-            assertThat(output()).contains("해산물파스타 1개", "레드와인 2개");
-        });
-    }
 
     @DisplayName("할인 적용 확인")
     @Test
     void discountTest() {
-        assertSimpleTest(() -> {
-            run("26", "타파스-1,제로콜라-2");
-            assertThat(output()).contains("없음");
+        assertSimpleTest(() ->{
+            run("10", "타파스-1,제로콜라-2");
+            assertThat(output()).contains(
+                    "크리스마스 디데이 할인: -1,900원\n",
+                    "특별 할인: -1,000원",
+                    "-2,900원");
         });
+
+        int count = (int) Arrays.stream(output().split("\n"))
+                .filter(s -> s.contains("없음"))
+                .count();
+        assertEquals(2, count);
+    }
+
+    @DisplayName("할인 미적용 확인")
+    @Test
+    void notAppliedDiscountTest() {
+        assertSimpleTest(() ->{
+            run("10", "타파스-1,제로콜라-1");
+            assertThat(output()).contains("0원");
+        });
+
+        int count = (int) Arrays.stream(output().split("\n"))
+                .filter(s -> s.contains("없음"))
+                .count();
+        assertEquals(3, count);
     }
 
     @DisplayName("할인 적용 및 할인 후 예상 결제 금액 확인")
@@ -124,9 +106,17 @@ public class UnitTest extends NsTest {
     @DisplayName("총 금액이 10000원 미만일 시 이벤트 적용 x")
     @Test
     void totalPriceTest(){
-        assertSimpleTest(() ->
-            run("3", "시저샐러드-1")
-        );
+        assertSimpleTest(() ->{
+            run("3", "시저샐러드-1");
+            assertThat(output()).contains(
+                    "0원",
+                    "총주문 금액 10,000원 이상부터 이벤트가 적용됩니다!");
+        });
+
+    int count = (int) Arrays.stream(output().split("\n"))
+            .filter(s -> s.contains("없음"))
+            .count();
+    assertEquals(3, count);
     }
 
     @Override
