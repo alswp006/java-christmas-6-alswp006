@@ -20,7 +20,7 @@ public class InputTest extends NsTest {
         });
     }
 
-    @DisplayName(" 입력에 대한 출력 확인")
+    @DisplayName("여러 입력에 대한 출력 확인")
     @Test
     void inputMenuTest() {
         assertSimpleTest(() -> run("10",
@@ -33,13 +33,16 @@ public class InputTest extends NsTest {
                 "해산물파슷아-ㅁ",
                 "해산물파스타-,-1",
                 "-,-",
+                "해산물파스타-0",
+                "해산물파스타--1",
                 "해산물파스타-1"));
 
          int countErrorMessage = (int)Arrays.stream(output().split("\n"))
                         .filter(s -> s.contains("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."))
                         .count();
-        assertEquals(9, countErrorMessage);
+        assertEquals(11, countErrorMessage);
     }
+
 
     @DisplayName("이벤트 메시지 출력 확인")
     @Test

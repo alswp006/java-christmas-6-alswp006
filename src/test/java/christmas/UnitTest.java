@@ -3,6 +3,9 @@ package christmas;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 
@@ -76,15 +79,6 @@ public class UnitTest extends NsTest {
         });
     }
 
-    @DisplayName("이벤트 배지 확인")
-    @Test
-    void eventBadgeTest() {
-        assertSimpleTest(() -> {
-            run("3", "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1");
-            assertThat(output()).contains("산타");
-        });
-    }
-
     @DisplayName("음료만 주문시 안내 메시지 출력")
     @Test
     void orderDrink(){
@@ -117,6 +111,49 @@ public class UnitTest extends NsTest {
             .filter(s -> s.contains("없음"))
             .count();
     assertEquals(3, count);
+    }
+
+    @DisplayName("평일 주말 할인 확인")
+    @ParameterizedTest
+    @CsvSource({"4,초코케이크-2,평일 할인", "2,티본스테이크-2,주말 할인"})
+    void discountTest(String day, String menu, String discountType) {
+        assertSimpleTest(() -> {
+            run(day, menu);
+            assertThat(output()).contains(discountType);
+        });
+    }
+
+    @DisplayName("이벤트 배지 확인")
+    @ParameterizedTest
+    @CsvSource({
+            "3,티본스테이크-5,산타",
+            "3,초코케이크-5,트리",
+            "3,초코케이크-3,별"
+    })
+    void eventBadgeTest(String day, String order, String badge) {
+        assertSimpleTest(() -> {
+            run(day, order);
+            assertThat(output()).contains(badge);
+        });
+    }
+
+    @DisplayName("크리스마스가 지나고 DDay할인 미출력 확인")
+    @Test
+    void notDDdayTest() {
+        assertSimpleTest(() -> {
+            run("26", "초코케이크-3");
+            assertThat(output()).doesNotContain("크리스마스 디데이 할인");
+        });
+    }
+
+    @DisplayName("특별 할인 확인")
+    @ParameterizedTest
+    @ValueSource(strings = {"10", "17", "24", "25", "31"})
+    void SpecialDiscountTest(String day) {
+        assertSimpleTest(() -> {
+            run(day, "초코케이크-3");
+            assertThat(output()).contains("특별 할인");
+        });
     }
 
     @Override
