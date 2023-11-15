@@ -30,7 +30,7 @@ public class Discount {
         for (DiscountStrategy strategy : getApplicableStrategies(date)) {
             int discountAmount = strategy.applyDiscount(menus, date);
 
-            if (discountAmount != 0) {
+            if (discountAmount > 0) {
                 String discountAmountStr = String.format(": -%,d원", discountAmount);
                 discountDetails.add(strategy.getDiscountName() + discountAmountStr);
             }
@@ -39,17 +39,15 @@ public class Discount {
     }
 
     public int totalDiscount(Map<String, Integer> menus, int date, int totalPrice) {
-        int totalDiscountPrice = getApplicableStrategies(date).stream()
-                .mapToInt(strategy -> strategy.applyDiscount(menus, date))
-                .sum();
-
         if (totalPrice < 10000) {
             System.out.println("총주문 금액 10,000원 이상부터 이벤트가 적용됩니다!\n");
 
             return 0;
         }
 
-        return totalDiscountPrice;
+        return getApplicableStrategies(date).stream()
+                .mapToInt(strategy -> strategy.applyDiscount(menus, date))
+                .sum();
     }
 
     private void applyBenefitEvevnt(int totalPrice) {
@@ -67,4 +65,3 @@ public class Discount {
                 .collect(Collectors.toList());
     }
 }
-

@@ -18,7 +18,6 @@ public abstract class WeekDiscount implements DiscountStrategy {
         this.discountAmount = discountAmount;
     }
 
-    @Override
     public int applyDiscount(Map<String, Integer> menus, int date) {
         return menus.entrySet().stream()
                 .filter(entry -> Menu.getMenuType(entry.getKey()).equals(menuType))

@@ -5,7 +5,6 @@ public class WeekendDiscount extends WeekDiscount {
         super(new int[]{5, 6}, "main", 2023);
     }
 
-    @Override
     public String getDiscountName() {
         String weekendDiscountName = "주말 할인";
 
