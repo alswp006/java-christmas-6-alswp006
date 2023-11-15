@@ -6,8 +6,7 @@ public class WeekendDiscount extends WeekDiscount {
     }
 
     public String getDiscountName() {
-        String weekendDiscountName = "주말 할인";
 
-        return weekendDiscountName;
+        return "주말 할인";
     }
 }

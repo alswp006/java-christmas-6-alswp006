@@ -25,9 +25,8 @@ public class SpecialDiscount implements DiscountStrategy {
     }
 
     public String getDiscountName() {
-        String specialDiscountMessage = "특별 할인";
 
-        return specialDiscountMessage;
+        return "특별 할인";
     }
 
 }

@@ -17,8 +17,7 @@ public class ChristmasDDAYDiscount implements DiscountStrategy {
     }
 
     public String getDiscountName() {
-        String christmasDDayDiscountMessage = "크리스마스 디데이 할인";
 
-        return christmasDDayDiscountMessage;
+        return "크리스마스 디데이 할인";
     }
 }
